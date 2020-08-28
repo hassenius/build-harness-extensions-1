@@ -1,4 +1,4 @@
-OPCATALOG_LOCAL_RELEASE_IMG := quay.io/multicloudops/opcatalog-local-release:latest
+OPCATALOG_LOCAL_RELEASE_IMG ?= quay.io/multicloudops/opcatalog-local-release:latest
 OPCATALOG_PATH ?= $(BUILD_HARNESS_EXTENSIONS_PATH)/vendor/operator-catalog
 OPERATOR_NAME ?= $(shell ls -d deploy/olm-catalog/* | awk -F/ '{print$$3}')
 OPERATOR_CSV ?= $(PWD)/deploy/olm-catalog/$(OPERATOR_NAME)/manifests/$(OPERATOR_NAME).clusterserviceversion.yaml
@@ -8,7 +8,7 @@ OPERATOR_VERSION ?= 99.99.99
 OPERATOR_VERSION_SNAPSHOT ?= --snapshot
 OPCATALOG_REPLACE_TAG ?= $(TARGET_VERSION_ARCH)
 OPCATALOG_AUTOREPLACE ?= --autoreplace $(OPCATALOG_REPLACE_TAG)
-OPCATALOG_IMAGE_NAME := opcatalog-test
+OPCATALOG_IMAGE_NAME ?= $(OPERATOR_NAME)-opcatalog-test
 export OPCATALOG_IMAGE ?= $(TARGET_DOCKER_REGISTRY)/$(DOCKER_REPO)/$(OPCATALOG_IMAGE_NAME):$(TARGET_VERSION_ARCH)
 OPCATALOG_BUILDER ?= $(BUILD_HARNESS_EXTENSIONS_PATH)/templates/opcatalog/Docker.opcatalog
 OPCATALOG_CATALOGSOURCE ?= $(BUILD_HARNESS_EXTENSIONS_PATH)/templates/opcatalog/catalog-source.yaml-template
