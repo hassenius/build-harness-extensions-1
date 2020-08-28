@@ -41,7 +41,8 @@ operatorcatalog/local/overridetemplate:
 	$(call assert-set,GITHUB_TOKEN)
 	$(call assert-set,OPERATOR_NAME)
 	$(call assert-set,OP_CATALOG_BRANCH)
-	$(DOCKER) run -it -e GITHUB_TOKEN -v $(PWD):/data $(OPCATALOG_LOCAL_RELEASE_IMG) create-images-override-template $(OPERATOR_NAME) -i /data/images-override.yaml --branch $(OP_CATALOG_BRANCH)
+	$(call assert-set,OP_CATALOG_REPO)
+	$(DOCKER) run -it -e OP_CATALOG_REPO -e GITHUB_TOKEN -v $(PWD):/data $(OPCATALOG_LOCAL_RELEASE_IMG) create-images-override-template $(OPERATOR_NAME) -i /data/images-override.yaml --branch $(OP_CATALOG_BRANCH) --catalog-repository $(OP_CATALOG_REPO)
 
 .PHONY: operatorcatalog/local/build
 ## Build OLM operator catalog
